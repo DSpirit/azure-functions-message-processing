@@ -1,0 +1,53 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serviceBusNamespace": {
+            "type": "string",
+            "defaultValue": "sbNamespace"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "topicOrders": "orders",
+        "subscriptionSAP": "sap",
+        "subscriptionCRM": "crm"
+    },
+    "resources": [
+        // Topic: Order
+        {
+            "name": "[concat(parameters('serviceBusNamespace'), '/', variables('topicOrders'))]",
+            "type": "Microsoft.ServiceBus/namespaces/topics",
+            "apiVersion": "2017-04-01",
+            "resources": [
+                // Subscription: SAP
+                { 
+                    "type": "subscriptions",
+                    "apiVersion": "2017-04-01",
+                    "dependsOn": [ "[variables('topicOrders')]" ],
+                    "name": "[variables('subscriptionSAP')]"
+                },
+                // Subscription: CRM
+                { 
+                    "type": "subscriptions",
+                    "apiVersion": "2017-04-01",
+                    "dependsOn": [ "[variables('topicOrders')]" ],
+                    "name": "[variables('subscriptionCRM')]"
+                }
+            ]
+        },
+        // Queue: SAP
+        {
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('serviceBusNamespace'), '/q.', variables('topicOrders'), '.', variables('subscriptionSAP'))]",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+        },
+        // Queue: CRM
+        {
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('serviceBusNamespace'), '/q.', variables('topicOrders'), '.', variables('subscriptionCRM'))]",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+        }
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,17 @@
+// Run CRM Sample
+POST http://localhost:7071/api/triggersample
+
+{
+    "type": "CRM",
+    "message": "Hello CRM!"
+}
+
+###
+
+// Run SAP Sample
+POST http://localhost:7071/api/triggersample
+
+{
+    "type": "SAP",
+    "message": "Hello SAP!"
+}
