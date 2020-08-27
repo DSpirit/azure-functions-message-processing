@@ -27,3 +27,6 @@ Functions:
 1. Run `resources.ps1` and provide your resource group name as well as the ServiceBus namespace name.
 1. Run `func start`.
 1. Open `run.http` and send one of the requests via REST Client by clicking the "Send Request" button.
+
+## Data Flow
+![](https://i.imgur.com/QcILEEz.png)
