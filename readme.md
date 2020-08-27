@@ -1,4 +1,4 @@
-# Azure Functions Template
+# Azure Functions Message Queueing & Processing Template
 
 This repository shows an example setup of queueing and processing messages in Azure Functions.
 > Azure Functions: v3
